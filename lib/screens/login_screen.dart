@@ -8,124 +8,202 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final emailController = TextEditingController();
+  final senhaController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0A0A0A),
+      backgroundColor: const Color(0xFF5D1BA8),
 
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 40),
+      body: Center(
+        child: SingleChildScrollView(
+          child: Container(
+            width: 380,
+            padding: const EdgeInsets.all(20),
 
-          child: Column(
-            children: [
-              const SizedBox(height: 80),
+            decoration: const BoxDecoration(color: Color(0xFF6B12B9)),
 
-              const Text(
-                'PixelBank ',
+            child: Column(
+              children: [
+                Container(
+                  width: 80,
+                  height: 80,
 
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  fontStyle: FontStyle.italic,
-                ),
-              ),
-              const SizedBox(height: 60),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFFD000),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
 
-              const Text(
-                'Bem-vindo de volta',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  fontStyle: FontStyle.italic,
-                ),
-              ),
-              const SizedBox(height: 40),
-
-              const Text(
-                'Acesse sua conta',
-                style: TextStyle(color: Colors.grey, fontSize: 18),
-              ),
-              const SizedBox(height: 25),
-
-              TextField(
-                decoration: InputDecoration(
-                  hintText: 'E-mail',
-
-                  filled: true,
-
-                  fillColor: const Color(0xFF1A1D29),
-
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
+                  child: const Icon(
+                    Icons.sports_esports,
+                    size: 40,
+                    color: Colors.deepPurple,
                   ),
                 ),
-              ),
-              const SizedBox(height: 20),
 
-              TextField(
-                obscureText: true,
+                const SizedBox(height: 20),
 
-                decoration: InputDecoration(
-                  hintText: 'Senha',
-
-                  filled: true,
-
-                  fillColor: const Color(0xFF1A1D29),
-
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
+                const Text(
+                  "PIXEL BANK",
+                  style: TextStyle(
+                    color: Color(0xFFFFD000),
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-              ),
-              const SizedBox(height: 40),
 
-              SizedBox(
-                width: double.infinity,
+                const SizedBox(height: 5),
 
-                height: 56,
+                const Text(
+                  "ACESSE SUA CONTA",
+                  style: TextStyle(color: Colors.white, fontSize: 12),
+                ),
 
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFD8F400),
+                const SizedBox(height: 25),
 
-                    foregroundColor: Colors.black,
+                Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFFFFD000),
 
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(23),
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.zero,
+                          ),
+                        ),
+
+                        onPressed: () {},
+
+                        child: const Text(
+                          "LOGIN",
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(width: 10),
+
+                    Expanded(
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFFFFD000),
+
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.zero,
+                          ),
+                        ),
+
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/register');
+                        },
+
+                        child: const Text(
+                          "CADASTRO",
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+
+                const SizedBox(height: 25),
+
+                const Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text("E-MAIL", style: TextStyle(color: Colors.white)),
+                ),
+
+                const SizedBox(height: 5),
+
+                TextField(
+                  controller: emailController,
+
+                  decoration: const InputDecoration(
+                    filled: true,
+                    fillColor: Color(0xFF8A2BE2),
+
+                    hintText: "Digite seu e-mail",
+
+                    border: OutlineInputBorder(borderRadius: BorderRadius.zero),
+                  ),
+                ),
+
+                const SizedBox(height: 15),
+
+                const Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text("SENHA", style: TextStyle(color: Colors.white)),
+                ),
+
+                const SizedBox(height: 5),
+
+                TextField(
+                  controller: senhaController,
+                  obscureText: true,
+
+                  decoration: const InputDecoration(
+                    filled: true,
+                    fillColor: Color(0xFF8A2BE2),
+
+                    hintText: "Digite sua senha",
+
+                    border: OutlineInputBorder(borderRadius: BorderRadius.zero),
+                  ),
+                ),
+
+                const SizedBox(height: 30),
+
+                SizedBox(
+                  width: double.infinity,
+                  height: 55,
+
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFFFD000),
+
+                      foregroundColor: Colors.black,
+
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.zero,
+                      ),
+                    ),
+
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(context, '/home');
+                    },
+
+                    child: const Text(
+                      "ENTRAR",
+                      style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
-
-                  onPressed: () {
-                    Navigator.pushReplacementNamed(context, '/home');
-                  },
-
-                  child: const Text('Entrar', style: TextStyle(fontSize: 18)),
                 ),
-              ),
-              const SizedBox(height: 25),
 
-              TextButton(
-                onPressed: () {},
-                child: const Text('Esqueci minha senha'),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/register');
-                },
+                const SizedBox(height: 25),
 
-                child: const Text('Criar conta'),
-              ),
-              TextButton.icon(
-                onPressed: () {},
+                TextButton(
+                  onPressed: () {},
 
-                icon: const Icon(Icons.fingerprint),
+                  child: const Text(
+                    "Esqueci minha senha",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
 
-                label: const Text('Entrar com digital'),
-              ),
-            ],
+                TextButton.icon(
+                  onPressed: () {},
+
+                  icon: const Icon(Icons.fingerprint, color: Colors.white),
+
+                  label: const Text(
+                    "Entrar com digital",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
