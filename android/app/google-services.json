@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "623768590956",
+    "project_id": "pixelbank-68bc5",
+    "storage_bucket": "pixelbank-68bc5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:623768590956:android:1b0ed157b407c1a0945649",
+        "android_client_info": {
+          "package_name": "com.example.banco_digital"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6vKTFiblR9gY1Ud0IftYXQ9PPG1Xf4O8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

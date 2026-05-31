@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -10,6 +12,37 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final senhaController = TextEditingController();
+  Future<void> fazerLogin() async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: senhaController.text.trim(),
+      );
+
+      if (!mounted) return;
+
+      Navigator.pushReplacementNamed(
+        context,
+        '/home',
+      );
+    } on FirebaseAuthException catch (e) {
+      String mensagem = "Erro ao fazer login";
+
+      if (e.code == 'user-not-found') {
+        mensagem = "Usuário não encontrado";
+      }
+
+      if (e.code == 'wrong-password') {
+        mensagem = "Senha incorreta";
+      }
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(mensagem),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -147,9 +180,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         borderRadius: BorderRadius.zero,
                       ),
                     ),
-                    onPressed: () {
-                      Navigator.pushReplacementNamed(context, '/home');
-                    },
+                    onPressed: fazerLogin,
                     child: const Text(
                       "ENTRAR",
                       style: TextStyle(fontWeight: FontWeight.bold),
