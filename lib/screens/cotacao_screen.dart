@@ -15,6 +15,15 @@ class _CotacaoScreenState extends State<CotacaoScreen> {
 
   bool carregando = true;
 
+  int _selectedIndex = 2;
+
+  final List<String> _rotas = [
+    '/home',
+    '/transferencia',
+    '/cotacao',
+    '/store',
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -45,68 +54,149 @@ class _CotacaoScreenState extends State<CotacaoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF5D1BA8),
-
-      appBar: AppBar(
-        backgroundColor: const Color(0xFFFFD000),
-
-        title: const Text("COTAÇÕES"),
-      ),
-
+      backgroundColor: const Color(0xFF07031A),
       body: carregando
-          ? const Center(child: CircularProgressIndicator())
-          : Padding(
-              padding: const EdgeInsets.all(20),
-
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : SafeArea(
               child: Column(
                 children: [
-                  cardMoeda("Dólar", dados!['USDBRL']['bid']),
-
-                  const SizedBox(height: 15),
-
-                  cardMoeda("Euro", dados!['EURBRL']['bid']),
-
-                  const SizedBox(height: 15),
-
-                  cardMoeda("Bitcoin", dados!['BTCBRL']['bid']),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.all(20),
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 10),
+                          const Text(
+                            "COTAÇÕES",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 28,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 30),
+                          cardMoeda(
+                            "Dólar",
+                            dados!['USDBRL']['bid'],
+                          ),
+                          cardMoeda(
+                            "Euro",
+                            dados!['EURBRL']['bid'],
+                          ),
+                          cardMoeda(
+                            "Bitcoin",
+                            dados!['BTCBRL']['bid'],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  _buildNavBar(),
                 ],
               ),
             ),
     );
   }
 
+  Widget _buildNavBar() {
+    final items = [
+      {'icone': Icons.home_rounded, 'label': 'INÍCIO'},
+      {'icone': Icons.send_rounded, 'label': 'ENVIAR'},
+      {'icone': Icons.show_chart_rounded, 'label': 'COTAÇÃO'},
+      {'icone': Icons.storefront_rounded, 'label': 'LOJA'},
+    ];
+
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        vertical: 10,
+        horizontal: 8,
+      ),
+      decoration: const BoxDecoration(
+        color: Color(0xFF110E28),
+        border: Border(
+          top: BorderSide(
+            color: Color(0xFF2A1F6F),
+            width: 1.5,
+          ),
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: List.generate(
+          items.length,
+          (i) {
+            final selecionado = _selectedIndex == i;
+
+            return GestureDetector(
+              onTap: () {
+                if (i == _selectedIndex) return;
+
+                Navigator.pushReplacementNamed(
+                  context,
+                  _rotas[i],
+                );
+              },
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    items[i]['icone'] as IconData,
+                    color: selecionado
+                        ? const Color(0xFFFFD700)
+                        : const Color(0xFF6B5B9A),
+                    size: 22,
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    items[i]['label'] as String,
+                    style: TextStyle(
+                      color: selecionado
+                          ? const Color(0xFFFFD700)
+                          : const Color(0xFF6B5B9A),
+                      fontSize: 8,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+
   Widget cardMoeda(String nome, String valor) {
     return Container(
       width: double.infinity,
-
+      margin: const EdgeInsets.only(bottom: 15),
       padding: const EdgeInsets.all(20),
-
       decoration: BoxDecoration(
-        color: const Color(0xFF6B12B9),
-
-        border: Border.all(color: const Color(0xFFFFD000)),
+        color: const Color(0xFF1A1040),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: const Color(0xFF3D2D8A),
+          width: 1.5,
+        ),
       ),
-
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             nome,
-
             style: const TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
+              color: Colors.white70,
+              fontSize: 16,
             ),
           ),
-
           const SizedBox(height: 10),
-
           Text(
             "R\$ $valor",
-
             style: const TextStyle(
-              color: Color(0xFFFFD000),
-              fontSize: 24,
+              color: Colors.white,
+              fontSize: 30,
               fontWeight: FontWeight.bold,
             ),
           ),
