@@ -22,9 +22,9 @@ dependencies:
   cloud_firestore: ^6.0.0
 
   # Plugins
-share_plus: ^13.1.0
-local_auth: ^2.3.0
-google_fonts: ^6.3.2
+  share_plus: ^13.1.0
+  local_auth: ^2.3.0
+  google_fonts: ^6.3.2
 
 dev_dependencies:
   flutter_test:

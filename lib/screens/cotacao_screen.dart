@@ -15,6 +15,10 @@ class _CotacaoScreenState extends State<CotacaoScreen> {
 
   bool carregando = true;
 
+  final TextEditingController quantidadeController = TextEditingController();
+
+  double valorDigitado = 1;
+
   int _selectedIndex = 2;
 
   final List<String> _rotas = [
@@ -77,17 +81,53 @@ class _CotacaoScreenState extends State<CotacaoScreen> {
                             ),
                           ),
                           const SizedBox(height: 30),
+                          TextField(
+                            controller: quantidadeController,
+                            keyboardType: TextInputType.number,
+                            style: const TextStyle(
+                              color: Colors.white,
+                            ),
+                            decoration: InputDecoration(
+                              hintText: "Digite uma quantidade",
+                              hintStyle: const TextStyle(
+                                color: Colors.white54,
+                              ),
+                              filled: true,
+                              fillColor: const Color(0xFF1A1040),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                            onChanged: (value) {
+                              setState(() {
+                                valorDigitado = double.tryParse(value) ?? 1;
+                              });
+                            },
+                          ),
+                          const SizedBox(height: 20),
                           cardMoeda(
                             "Dólar",
-                            dados!['USDBRL']['bid'],
+                            (double.parse(
+                                      dados!['USDBRL']['bid'],
+                                    ) *
+                                    valorDigitado)
+                                .toStringAsFixed(2),
                           ),
                           cardMoeda(
                             "Euro",
-                            dados!['EURBRL']['bid'],
+                            (double.parse(
+                                      dados!['EURBRL']['bid'],
+                                    ) *
+                                    valorDigitado)
+                                .toStringAsFixed(2),
                           ),
                           cardMoeda(
                             "Bitcoin",
-                            dados!['BTCBRL']['bid'],
+                            (double.parse(
+                                      dados!['BTCBRL']['bid'],
+                                    ) *
+                                    valorDigitado)
+                                .toStringAsFixed(2),
                           ),
                         ],
                       ),
