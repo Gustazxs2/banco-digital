@@ -76,6 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildHeader() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,28 +101,64 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-          decoration: BoxDecoration(
-            color: const Color(0xFF2A1F6F),
-            borderRadius: BorderRadius.circular(6),
-            border: Border.all(color: const Color(0xFF7B5EA7), width: 1.5),
-          ),
-          child: Row(
-            children: [
-              const Icon(Icons.flash_on, color: Color(0xFFFFD700), size: 16),
-              const SizedBox(width: 4),
-              Text(
-                'LV $level',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 1,
+        Row(
+          children: [
+            InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, '/profile');
+              },
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF1A1040),
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                    color: const Color(0xFF7B5EA7),
+                    width: 1.5,
+                  ),
+                ),
+                child: const Icon(
+                  Icons.person,
+                  color: Color(0xFFFFD700),
+                  size: 24,
                 ),
               ),
-            ],
-          ),
+            ),
+            const SizedBox(width: 10),
+            Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 14,
+                vertical: 8,
+              ),
+              decoration: BoxDecoration(
+                color: const Color(0xFF2A1F6F),
+                borderRadius: BorderRadius.circular(6),
+                border: Border.all(
+                  color: const Color(0xFF7B5EA7),
+                  width: 1.5,
+                ),
+              ),
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.flash_on,
+                    color: Color(0xFFFFD700),
+                    size: 16,
+                  ),
+                  const SizedBox(width: 4),
+                  Text(
+                    'LV $level',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ],
     );
